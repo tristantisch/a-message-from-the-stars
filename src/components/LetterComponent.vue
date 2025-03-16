@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type PropType } from 'vue';
 import { type Letter } from '../services/types';
-import { LetterNotetakingState, nextState } from './letter-notetaking';
+import { LetterNotetakingState, nextState } from '../services/letter-notetaking';
 
 const {letter, allowNotetaking, isCode} = defineProps({
     letter : {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { calculateScore } from './hint-score';
+import { calculateScore } from '../services/hint-score';
 import { type Letter } from '../services/types';
+import { upperCase } from '../services/utils';
 
 const {code} = defineProps({
     code : {
@@ -20,7 +21,7 @@ const score = computed(() => calculateScore(hint.value, code));
             type="text"
             placeholder="Enter a hint"
             :value="hint"
-            @input="event => hint = (event.target as HTMLTextAreaElement).value.toUpperCase()"
+            @input="event => hint = upperCase((event.target as HTMLTextAreaElement).value)"
         >
         <div id="score">
             {{ score }}

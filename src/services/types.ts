@@ -3,6 +3,10 @@ export interface Letter {
     color: Color,
 };
 
+export interface Map<T> {
+    [key: string]: T
+}
+
 export enum Color {
     Green = 'green',
     Grey = 'grey',
