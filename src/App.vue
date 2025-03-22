@@ -2,7 +2,6 @@
 import CodeSlot from './components/CodeSlot.vue';
 import LetterGrid from './components/LetterGrid.vue';
 import HintBar from './components/HintBar.vue';
-import { codePositions as colorRequirements } from './services/code-generator';
 import { useCodeStore } from './services/code-store';
 import { storeToRefs } from 'pinia';
 

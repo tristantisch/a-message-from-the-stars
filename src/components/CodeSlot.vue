@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed } from 'vue';
 import LetterComponent from './LetterComponent.vue';
-import { Color, type Letter } from '../services/types';
+import { Color } from '../services/types';
 import { codePositions } from '../services/code-generator';
 import { useCodeStore } from '../services/code-store';
 
