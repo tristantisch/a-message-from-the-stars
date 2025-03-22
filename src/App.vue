@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import CodeSlot from './components/CodeSlot.vue';
 import LetterGrid from './components/LetterGrid.vue';
 import HintBar from './components/HintBar.vue';
-import { generateCode } from './services/code-generator';
 import { codePositions as colorRequirements } from './services/code-generator';
+import { useCodeStore } from './services/code-store';
+import { storeToRefs } from 'pinia';
 
-const code = ref(generateCode());
+const codeStore = useCodeStore();
+const {code} = storeToRefs(codeStore);
 </script>
 
 <template>
@@ -14,27 +15,24 @@ const code = ref(generateCode());
     <LetterGrid>
       <div id="codeSlots">
         <CodeSlot
-            v-for="(letter, index) in code.slice(0, 3)"
-            :letter="letter"
-            :colorRequirement="colorRequirements[index]"
+            v-for="index in [0, 1, 2]"
+            :index="index"
         />
       </div>
     </LetterGrid>
     <LetterGrid>
       <div id="codeSlots">
         <CodeSlot
-            v-for="(letter, index) in code.slice(3, 5)"
-            :letter="letter"
-            :colorRequirement="colorRequirements[index]"
+            v-for="index in [3, 4]"
+            :index="index"
         />
       </div>
     </LetterGrid>
     <LetterGrid>
       <div id="codeSlots">
         <CodeSlot
-            v-for="(letter, index) in code.slice(5)"
-            :letter="letter"
-            :colorRequirement="colorRequirements[index]"
+            v-for="index in [5]"
+            :index="index"
         />
       </div>
     </LetterGrid>

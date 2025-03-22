@@ -42,7 +42,7 @@ export const codePositions: Array<Array<Color>> = [
     [Color.Green, Color.Grey, Color.Red],
 ];
 
-export function generateCode(): Array<Letter> {
+export function generateCode(): Letter[] {
     let code: Array<Letter> = Array(codePositions.length).fill(null);
 
     let possibleIndices: Array<number> = Array.from(Array(letterPool.length).keys());

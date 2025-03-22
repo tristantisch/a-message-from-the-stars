@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref, type PropType } from 'vue';
+import { nextTick, ref, useTemplateRef, type PropType } from 'vue';
 import { type Letter } from '../services/types';
 import { LetterNotetakingState, nextState } from '../services/letter-notetaking';
+import { upperCase } from '../services/utils';
+import { letterPool } from '../services/code-generator';
 
 const {letter, allowNotetaking, isCode} = defineProps({
     letter : {
@@ -19,12 +21,57 @@ const {letter, allowNotetaking, isCode} = defineProps({
         default: false,
     },
 });
-let state = ref(LetterNotetakingState.None);
-const changeNotetakingState = () => {
+const emit = defineEmits(['update:letter']);
+
+const onClick = () => {
     if (allowNotetaking) {
-        state.value = nextState(state.value);
+        changeNotetakingState();
+    }
+    if (isCode) {
+        toggleEditMode();
     }
 }
+
+let state = ref(LetterNotetakingState.None);
+const changeNotetakingState = () => {
+    state.value = nextState(state.value);
+}
+
+let isInEditMode = ref(false);
+const inputField = useTemplateRef('inputField');
+const toggleEditMode = async () => {
+    isInEditMode.value = !isInEditMode.value;
+    if (isInEditMode.value) {
+        // Wait for the input field to be rendered
+        await nextTick();
+        inputField.value?.focus();
+    } else {
+        if (editedCode.value === '') {
+            return;
+        } 
+        emit('update:letter', editedCode.value);
+        editedCode.value = '';
+    }
+};
+
+const editedCode = ref('');
+const updateEditedCode = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    let newCode = upperCase(target.value);
+    if (newCode.length === 0) {
+        editedCode.value = '';
+        return;
+    }
+    if (newCode.length > 1) {
+        newCode = newCode[newCode.length - 1];
+    }
+    if (!letterPool.map(letter => letter.character).includes(newCode)) {
+        // Reset the input field to the last valid value
+        target.value = editedCode.value;
+        return;
+    }
+    editedCode.value = newCode;
+};
 </script>
 
 <template>
@@ -35,11 +82,23 @@ const changeNotetakingState = () => {
             isCode,
             unselectable: true,
         }"
-        @click="changeNotetakingState()"
+        @click="onClick()"
     >
-        <div id="circle" v-if="state === LetterNotetakingState.Circled"></div>
-        <div id="cross" v-if="state === LetterNotetakingState.Crossed"></div>
-        {{ letter.character }}
+        <template v-if="isInEditMode">
+            <input
+                id="inputField"
+                ref="inputField"
+                type="text"
+                :value="editedCode"
+                @input="updateEditedCode"
+                @blur="toggleEditMode"
+            />
+        </template>
+        <template v-else>
+            <div id="circle" v-if="state === LetterNotetakingState.Circled"></div>
+            <div id="cross" v-if="state === LetterNotetakingState.Crossed"></div>
+            {{ letter.character }}
+        </template> 
     </div>  
 </template>
 
@@ -104,5 +163,14 @@ const changeNotetakingState = () => {
 }
 #cross::after {
     transform: rotate(-45deg);
+}
+
+#inputField {
+    background: none;
+    border: none;
+    font-size: 30pt;
+    width: var(--letter-size);
+    height: var(--letter-size);
+    text-align: center;
 }
 </style>

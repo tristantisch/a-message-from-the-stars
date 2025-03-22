@@ -2,17 +2,19 @@
 import { computed, type PropType } from 'vue';
 import LetterComponent from './LetterComponent.vue';
 import { Color, type Letter } from '../services/types';
+import { codePositions } from '../services/code-generator';
+import { useCodeStore } from '../services/code-store';
 
-const {colorRequirement, letter} = defineProps({
-    colorRequirement: {
-        type: Array<Color>,
-        required: true,
-    },
-    letter : {
-        type: Object as PropType<Letter>,
+const {index} = defineProps({
+    index: {
+        type: Number,
         required: true,
     },
 });
+
+const {code, updateCode} = useCodeStore();
+const colorRequirement = computed(() => codePositions[index]);
+const letter = computed(() => code[index]);
 
 const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(key))) as (keyof typeof Color)[]);
 </script>
@@ -33,6 +35,7 @@ const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(k
         <LetterComponent 
             :letter="letter"
             isCode
+            @update:letter="updateCode($event, index)"
         />
     </div>      
 </template>
