@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import LetterComponent from './LetterComponent.vue';
-import { Color } from '../services/types';
-import { codePositions } from '../services/code-generator';
-import { useCodeStore } from '../services/code-store';
+import LetterComponent from '../letter/LetterComponent.vue';
+import { Color } from '../types';
+import { codePositions } from './code-generator';
+import { useCodeStore } from './code-store';
 
 const {index} = defineProps({
     index: {

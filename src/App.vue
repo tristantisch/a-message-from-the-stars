@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import CodeSlot from './components/CodeSlot.vue';
-import LetterGrid from './components/LetterGrid.vue';
-import HintBar from './components/HintBar.vue';
-import { useCodeStore } from './services/code-store';
+import CodeSlot from './code/CodeSlot.vue';
+import LetterGrid from './letter/LetterGrid.vue';
+import HintBar from './hint/HintBar.vue';
+import { useCodeStore } from './code/code-store';
 import { storeToRefs } from 'pinia';
+
+if (import.meta.env.PROD) {
+  window.onbeforeunload = () => {
+    return 'Are you sure you want to leave? Your progress will be lost.';
+  };
+}
 
 const codeStore = useCodeStore();
 const {code} = storeToRefs(codeStore);

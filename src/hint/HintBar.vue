@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { calculateScore } from '../services/hint-score';
-import { type Letter } from '../services/types';
-import { upperCase } from '../services/utils';
+import { calculateScore } from './hint-score'; 
+import { type Letter } from '../types';
+import { upperCase } from '../utils';
 
 const {code} = defineProps({
     code : {

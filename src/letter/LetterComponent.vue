@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef, type PropType } from 'vue';
-import { type Letter } from '../services/types';
-import { LetterNotetakingState, nextState } from '../services/letter-notetaking';
-import { upperCase } from '../services/utils';
-import { letterPool } from '../services/code-generator';
+import { type Letter } from '../types';
+import { LetterNotetakingState, nextState } from './letter-notetaking';
+import { upperCase } from '../utils';
+import { letterPool } from '../code/code-generator';
 
 const {letter, allowNotetaking, isCode} = defineProps({
     letter : {

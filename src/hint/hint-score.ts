@@ -1,4 +1,4 @@
-import type { Letter } from "./types";
+import type { Letter } from "../types";
 
 export function calculateScore(hint: string, code: Array<Letter>) {
     let score = 0;

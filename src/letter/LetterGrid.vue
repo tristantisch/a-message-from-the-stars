@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { letterPool } from '../services/code-generator';
-import LetterComponent from './LetterComponent.vue';
+import { letterPool } from '../code/code-generator';
+import LetterComponent from '../letter/LetterComponent.vue';
 
 const letters = letterPool;
 </script>

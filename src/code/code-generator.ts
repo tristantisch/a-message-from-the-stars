@@ -1,4 +1,4 @@
-import { Color, type Letter } from "./types";
+import { Color, type Letter } from "../types";
 
 export const letterPool: Array<Letter> = [
     { character: "A", color: Color.Green },

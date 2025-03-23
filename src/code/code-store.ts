@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { generateCode, letterPool } from "./code-generator";
 import { ref, type Ref } from "vue";
-import type { Letter } from "./types";
+import type { Letter } from "../types";
 
 export const useCodeStore = defineStore('code', () => {
     const code: Ref<Letter[]> = ref(generateCode());
