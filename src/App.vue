@@ -2,6 +2,7 @@
 import CodeSlot from './code/CodeSlot.vue';
 import LetterGrid from './letter/LetterGrid.vue';
 import HintBar from './hint/HintBar.vue';
+import WordGrid from './words/WordGrid.vue';
 import { useCodeStore } from './code/code-store';
 import { storeToRefs } from 'pinia';
 
@@ -43,6 +44,7 @@ const {code} = storeToRefs(codeStore);
     </LetterGrid>
   </div>
   <HintBar :code="code"/>
+  <WordGrid/>
 </template>
 
 <style scoped>

@@ -34,6 +34,7 @@ const score = computed(() => calculateScore(hint.value, code));
     align-items: center;
     justify-content: center;
     display: flex;
+    padding-bottom: 20px;
 }
 #score {
     height: 50px;
