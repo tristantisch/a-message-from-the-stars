@@ -25,7 +25,10 @@ const changeLanguage = async (event: Event) => {
 
 <template>
     <div id="language-switcher">
-        <select @change="changeLanguage">
+        <select 
+            @change="changeLanguage"
+            :value="language"
+        >
             <option
                 v-for="lang in languages"
                 :key="lang.isoCode"
