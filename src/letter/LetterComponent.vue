@@ -3,7 +3,9 @@ import { nextTick, ref, useTemplateRef, type PropType } from 'vue';
 import { type Letter } from '../types';
 import { LetterNotetakingState, nextState } from './letter-notetaking';
 import { upperCase } from '../utils';
-import { letterPool } from '../code/code-generator';
+import { useLanguageStore } from '../language/languageStore';
+import { storeToRefs } from 'pinia';
+import { letterPool } from '../code/letters';
 
 const {letter, allowNotetaking, isCode} = defineProps({
     letter : {
@@ -54,6 +56,9 @@ const toggleEditMode = async () => {
     }
 };
 
+const languageStore = useLanguageStore();
+const {language} = storeToRefs(languageStore);
+
 const editedCode = ref('');
 const updateEditedCode = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -65,7 +70,7 @@ const updateEditedCode = (event: Event) => {
     if (newCode.length > 1) {
         newCode = newCode[newCode.length - 1];
     }
-    if (!letterPool.map(letter => letter.character).includes(newCode)) {
+    if (!letterPool[language.value].map(letter => letter.character).includes(newCode)) {
         // Reset the input field to the last valid value
         target.value = editedCode.value;
         return;

@@ -4,6 +4,7 @@ import LetterComponent from '../letter/LetterComponent.vue';
 import { Color } from '../types';
 import { codePositions } from './code-generator';
 import { useCodeStore } from './code-store';
+import { storeToRefs } from 'pinia';
 
 const {index} = defineProps({
     index: {
@@ -12,9 +13,10 @@ const {index} = defineProps({
     },
 });
 
-const {code, updateCode} = useCodeStore();
+const codeStore = useCodeStore();
+const {code} = storeToRefs(codeStore);
 const colorRequirement = computed(() => codePositions[index]);
-const letter = computed(() => code[index]);
+const letter = computed(() => code.value[index]);
 
 const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(key))) as (keyof typeof Color)[]);
 </script>
@@ -35,7 +37,7 @@ const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(k
         <LetterComponent 
             :letter="letter"
             isCode
-            @update:letter="updateCode($event, index)"
+            @update:letter="codeStore.updateCode($event, index)"
         />
     </div>      
 </template>

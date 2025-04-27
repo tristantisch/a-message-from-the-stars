@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { letterPool } from '../code/code-generator';
+import { storeToRefs } from 'pinia';
+import { letterPool } from '../code/letters';
 import LetterComponent from '../letter/LetterComponent.vue';
+import { useLanguageStore } from '../language/languageStore';
+import { computed } from 'vue';
 
-const letters = letterPool;
+const {language} = storeToRefs(useLanguageStore());
+const letters = computed(() => letterPool[language.value]);
 </script>
 
 <template>

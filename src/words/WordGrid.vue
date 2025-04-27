@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import { getRandomWordGrid, getRandomWordIndices } from './words';
+import { storeToRefs } from 'pinia';
+import { useWordsStore } from './wordsStore';
 
-const words = getRandomWordGrid();
-const indices = getRandomWordIndices();
+const wordsStore = useWordsStore();
+wordsStore.generateRandomWordGrid();
+wordsStore.generateRandomIndices();
+const { wordGrid, randomWordIndices } = storeToRefs(wordsStore);
+
 
 const isWordSelected = (index: number) => {
+    if (randomWordIndices.value === null) {
+        return false;
+    }
     const rowNumber = Math.floor(index / 6);
-    console.log(rowNumber, index, indices);
-    return indices[rowNumber] === index % 6;
+    return randomWordIndices.value[rowNumber] === index % 6;
 };
 </script>
 
@@ -15,7 +21,7 @@ const isWordSelected = (index: number) => {
     <div id="grid">
         <div
             id="word"
-            v-for="(word, index) in words.flat()"
+            v-for="(word, index) in (wordGrid as string[][]).flat()"
             :class="{
                 selected: isWordSelected(index)
             }"

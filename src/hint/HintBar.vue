@@ -3,6 +3,21 @@ import { computed, ref } from 'vue';
 import { calculateScore } from './hint-score'; 
 import { type Letter } from '../types';
 import { upperCase } from '../utils';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n({
+    messages: {
+        en: {
+            'hint-placeholder': 'Enter a hint',
+        },
+        de: {
+            'hint-placeholder': 'Gib einen Tipp ein',
+        },
+        sv: {
+            'hint-placeholder': 'Skriv ett tips',
+        },
+    },
+});
 
 const {code} = defineProps({
     code : {
@@ -19,7 +34,7 @@ const score = computed(() => calculateScore(hint.value, code));
     <div id="hint-bar">
         <input 
             type="text"
-            placeholder="Enter a hint"
+            :placeholder="t('hint-placeholder')"
             :value="hint"
             @input="event => hint = upperCase((event.target as HTMLTextAreaElement).value)"
         >

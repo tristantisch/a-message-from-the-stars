@@ -1,3 +1,5 @@
+import languages from './language/languages';
+
 export interface Letter {
     character: string,
     color: Color,
@@ -12,3 +14,10 @@ export enum Color {
     Grey = 'grey',
     Red = 'red',
 };
+
+export interface Language {
+    isoCode: string,
+    flagEmoji: string,
+};
+
+export type LanguageCode = typeof languages[number]['isoCode'];

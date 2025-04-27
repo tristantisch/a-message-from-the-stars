@@ -13,9 +13,11 @@
     "sass-embedded": "^1.85.1",
     "vite-plugin-vuetify": "^2.1.0",
     "vue": "^3.5.13",
+    "vue-i18n": "^10.0.7",
     "vuetify": "^3.7.14"
   },
   "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@mdi/font": "^7.4.47",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",

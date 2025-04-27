@@ -3,8 +3,10 @@ import CodeSlot from './code/CodeSlot.vue';
 import LetterGrid from './letter/LetterGrid.vue';
 import HintBar from './hint/HintBar.vue';
 import WordGrid from './words/WordGrid.vue';
+import LanguageSwitcher from './language/LanguageSwitcher.vue';
 import { useCodeStore } from './code/code-store';
 import { storeToRefs } from 'pinia';
+import { useLanguageStore } from './language/languageStore';
 
 if (import.meta.env.PROD) {
   window.onbeforeunload = () => {
@@ -12,11 +14,14 @@ if (import.meta.env.PROD) {
   };
 }
 
+const languageStore = useLanguageStore();
+languageStore.initializeLanguage();
 const codeStore = useCodeStore();
 const {code} = storeToRefs(codeStore);
 </script>
 
 <template>
+  <LanguageSwitcher/>
   <div id="letterGrids">
     <LetterGrid>
       <div id="codeSlots">
