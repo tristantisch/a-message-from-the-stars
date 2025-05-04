@@ -4,6 +4,7 @@ import LetterGrid from './letter/LetterGrid.vue';
 import HintBar from './hint/HintBar.vue';
 import WordGrid from './words/WordGrid.vue';
 import LanguageSwitcher from './language/LanguageSwitcher.vue';
+import ThemeSwitcher from './theme/ThemeSwitcher.vue';
 import { useCodeStore } from './code/code-store';
 import { storeToRefs } from 'pinia';
 import { useLanguageStore } from './language/languageStore';
@@ -21,35 +22,38 @@ const {code} = storeToRefs(codeStore);
 </script>
 
 <template>
-  <LanguageSwitcher/>
-  <div id="letterGrids">
-    <LetterGrid>
-      <div id="codeSlots">
-        <CodeSlot
-            v-for="index in [0, 1, 2]"
-            :index="index"
-        />
-      </div>
-    </LetterGrid>
-    <LetterGrid>
-      <div id="codeSlots">
-        <CodeSlot
-            v-for="index in [3, 4]"
-            :index="index"
-        />
-      </div>
-    </LetterGrid>
-    <LetterGrid>
-      <div id="codeSlots">
-        <CodeSlot
-            v-for="index in [5]"
-            :index="index"
-        />
-      </div>
-    </LetterGrid>
+  <div id="app" theme="light">
+    <LanguageSwitcher/>
+    <ThemeSwitcher/>
+    <div id="letterGrids">
+      <LetterGrid>
+        <div id="codeSlots">
+          <CodeSlot
+              v-for="index in [0, 1, 2]"
+              :index="index"
+          />
+        </div>
+      </LetterGrid>
+      <LetterGrid>
+        <div id="codeSlots">
+          <CodeSlot
+              v-for="index in [3, 4]"
+              :index="index"
+          />
+        </div>
+      </LetterGrid>
+      <LetterGrid>
+        <div id="codeSlots">
+          <CodeSlot
+              v-for="index in [5]"
+              :index="index"
+          />
+        </div>
+      </LetterGrid>
+    </div>
+    <HintBar :code="code"/>
+    <WordGrid/>
   </div>
-  <HintBar :code="code"/>
-  <WordGrid/>
 </template>
 
 <style scoped>

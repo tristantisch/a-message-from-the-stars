@@ -44,8 +44,8 @@ const isWordSelected = (index: number) => {
     font-size: 18px;
 
     &.selected {
-        background-color: #f0f0f0;
-        color: #000;
+        color: var(--background);
+        background-color: var(--text);
         font-weight: bold;
     }
 }

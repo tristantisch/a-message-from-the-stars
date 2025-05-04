@@ -49,11 +49,19 @@ const changeLanguage = async (event: Event) => {
     z-index: 100;
 
     select {
+        color: var(--text);
+        background-color: var(--color-gray-100);
         font-size: 24px;
-        padding: 10px;
-        border: 1px solid white;
+        text-align: center;
+        padding: 0px;
+        border: 1px solid var(--text);
         cursor: pointer;
         outline: none;
+        width: 50px;
+        height: 50px;
+        appearance: none;
+    
     }
+
 }
 </style>

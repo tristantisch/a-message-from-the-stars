@@ -25,12 +25,13 @@ const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(k
     <div id="codeSlot">
         <div id="colorIndicators">
             <div
-                v-for="colorKey in colorKeys"
+                v-for="(colorKey, index) in colorKeys"
                 :key="colorKey"
                 id="colorIndicator"
                 :class="{
                     [colorKey.toLowerCase()]: true,
                     filled: colorRequirement.includes(Color[colorKey]),
+                    first: index === 0,
                 }"
             ></div>
         </div>
@@ -53,9 +54,16 @@ const colorKeys = computed(() => Object.keys(Color).filter(key => isNaN(Number(k
     flex-direction: column;
 }
 #colorIndicator {
-    width: 28px;
-    height: 28px;
-    border: solid 1px white;
+    --color-size: calc((90px - 4px) / 3);
+    width: var(--color-size);
+    height: var(--color-size);
+    border-style: solid;
+    border-color: var(--text);
+    border-width: 0px 1px 1px 1px;
+
+    &.first {
+        border-width: 1px 1px 1px 1px;
+    }
 
     &.filled {
         &.grey {

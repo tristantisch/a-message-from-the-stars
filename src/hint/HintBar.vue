@@ -62,5 +62,11 @@ input {
     width: 400px;
     font-size: 20pt;
     padding: 10px;
+    border: none;
+    background-color: var(--color-gray-100);
+    color: var(--text);
+}
+input::placeholder {
+    color: var(--color-gray-500);
 }
 </style>

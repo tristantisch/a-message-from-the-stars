@@ -7,7 +7,7 @@ import { useLanguageStore } from '../language/languageStore';
 import { storeToRefs } from 'pinia';
 import { letterPool } from '../code/letters';
 
-const {letter, allowNotetaking, isCode} = defineProps({
+const {letter, allowNotetaking, isCode, index} = defineProps({
     letter : {
         type: Object as PropType<Letter>,
         required: true,
@@ -21,6 +21,11 @@ const {letter, allowNotetaking, isCode} = defineProps({
         type: Boolean,
         required: false,
         default: false,
+    },
+    index: {
+        type: Number,
+        required: false,
+        default: 0,
     },
 });
 const emit = defineEmits(['update:letter']);
@@ -86,6 +91,8 @@ const updateEditedCode = (event: Event) => {
             [letter.color]: true,
             isCode,
             unselectable: true,
+            isLeftmost: index % 5 === 0,
+            isTopmost: index < 5,
         }"
         @click="onClick()"
     >
@@ -107,7 +114,6 @@ const updateEditedCode = (event: Event) => {
     </div>  
 </template>
 
-<!-- TODO: Define color constants somwhere central -->
 <style scoped>
 #letter {
     height: var(--letter-size);
@@ -117,7 +123,16 @@ const updateEditedCode = (event: Event) => {
     align-content: center;
     position: relative;
 
-    border: 1px solid white;
+    border-style: solid;
+    border-width: 0px 1px 1px 0px;
+    border-color: var(--text);
+    color:var(--text);
+    &.isLeftmost {
+        border-left-width: 1px;
+    }
+    &.isTopmost {
+        border-top-width: 1px;
+    }
     &.grey {
         background-color: grey;
     }
@@ -131,6 +146,7 @@ const updateEditedCode = (event: Event) => {
         height: var(--letter-size-code);
         width: var(--letter-size-code);
         font-size: 30pt;
+        border-width: 1px;
     }
 }
 #circle {
@@ -138,7 +154,7 @@ const updateEditedCode = (event: Event) => {
     --border-size: 2px;
     height: var(--circle-size);
     width: var(--circle-size);
-    border: var(--border-size) solid white;
+    border: var(--border-size) solid var(--text);
     border-radius: calc(var(--circle-size) / 2 + var(--border-size));
     position: absolute;
     top: calc((var(--letter-size) - var(--circle-size)) / 2 - var(--border-size));
@@ -161,7 +177,7 @@ const updateEditedCode = (event: Event) => {
     content: '';
     width: 100%;
     height: 2px; /* cross thickness */
-    background-color: white;
+    background-color: var(--text);
 }
 #cross::before {
     transform: rotate(45deg);

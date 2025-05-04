@@ -14,7 +14,8 @@ const letters = computed(() => letterPool[language.value]);
         <slot></slot>
         <div id="grid">
             <LetterComponent
-                v-for="letter in letters"
+                v-for="(letter, index) in letters"
+                :index="index"
                 :letter="letter"
                 :allowNotetaking="true"
             />
@@ -29,7 +30,7 @@ const letters = computed(() => letterPool[language.value]);
     align-items: center;
 }
 #grid {
-    padding: 20px;
+    margin: 20px;
     display: grid;
     grid-template-columns: repeat(5, max-content);
 }
